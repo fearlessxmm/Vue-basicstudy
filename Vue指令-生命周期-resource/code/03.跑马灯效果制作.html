@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跑马灯制作效果</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="浪起来" @click="lang">
+        <input type="button" value="低调" @click="stop">
+        <p>{{ msg }}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: '猥琐发育，别浪~~！',
+                intervalId: null // data 上定义定时器id
+            },
+            methods: {
+                lang() {
+                    if(this.intervalId != null)return;
+                    // es6箭头函数中this取决于函数定义，而不是调用
+                    this.intervalId = setInterval(() => {
+                        // console.log(this.msg);// this指向的是vue对象
+                        var start = this.msg.substring(0, 1);// 截取第一个字符
+                        var end = this.msg.substring(1); // 从第二个字符直到最后
+                        this.msg = end + start;// 重新拼接得到新的字符串
+                    },400);
+                },
+                stop() {
+                    clearInterval(this.intervalId);
+                    // 每当清除了定时器，需要重新把intervalId置为null，不然清空了intervalId之后再点击lang时不为null，直接return
+                    this.intervalId = null;
+                }
+            }
+        })
+        // 点击第一个按钮，先截取msg字符串的第一个字符放在最后，和剩下的字符放在最前面，拼接起来传给msg，再用一个定时器控制
+        /* 注意：vm实例，会监听自己身上的data中所有数据的改变，只要数据一变化，就自动把最新数据，从data上同步到页面中去
+        好处：程序员只需要关心数据，不需要考虑如何重新渲染dom页面 */
+
+        /* 分析：
+        1.给【狼起来】按钮，绑定一个点击事件click
+        2.在按钮的事件处理函数中，写相关的业务逻辑代码：拿到msg字符串中，调用字符串的substring方法来截取字符串的截取操作，把第一个字符截取出，
+        放在最后一个位置即可
+        3.为了实现点击下按钮，自动截取的功能，需要把2步骤中的代码，放一个定时器中去。
+        */
+    </script>
+</body>
+
+</html>

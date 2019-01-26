@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mycom></mycom>
+    </div>
+    <script>
+        // 1.组件中可以有自己的data数据
+        // 2.组件中的data和实例中的data有点不一样，组件中的data必须是一个方法；但是实例中的data可以是一个对象
+        // 3.组件中的data不仅必须要是一个方法，而且方法内部，必须返回一个对象
+        // 4.组件中的data数据，使用方法和实例中的data数据一样
+        Vue.component('mycom',{
+            template:'<h3>这是全局组件----返回的数据{{msg}}</h3>',
+            data:function(){
+                return{
+                    msg:'123'
+                }
+            }
+        })
+        var vm = new Vue({
+            el:"#app",
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>

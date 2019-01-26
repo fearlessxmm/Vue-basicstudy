@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        .ball{
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="加入购物车" @click="flag=!flag">
+        <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+        >
+            <div class="ball" v-show="flag"></div>
+        </transition>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                flag: false
+            },
+            methods: {
+                // el就是要控制的js dom对象；可以认为el就是通过document.getElementById('')获得js dom 对象
+                beforeEnter(el){// beforEnter 表示动画入场之前，动画未开始，在这个函数中，设置元素动画起始之前的位置
+                    el.style.transform = "translate(0,0)";
+                },
+                enter(el,done){// done 回调函数是必须的 
+                // el.offsetWidth 要是不写就出不来动画效果
+                // 可以认为el.offsetXXX 会强制刷新动画效果
+                    el.offsetWidth
+
+                    // enter 动画开始之后的样式，这里写小球完成动画之后的结束状态
+                    el.style.transform = "translate(150px,450px)";
+                    el.style.transition = "all 1s ease";
+
+                    done()// afterEnter函数的引用
+                },
+                afterEnter(el){
+                    // 动画完成之后，会调用afterEnter函数
+                   // console.log('ok');
+                   this.flag = !this.flag;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

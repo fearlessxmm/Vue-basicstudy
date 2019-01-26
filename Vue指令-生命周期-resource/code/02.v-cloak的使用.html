@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+           /*  display:none; */
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-cloak配合属性样式display可以解决闪烁问题 -->
+        <p v-cloak>========={{ msg }}+++++++++</p>
+         <!-- v-text默认没有闪烁问题，但是会覆盖元素本身的内容 -->
+        <h4 v-text = "msg">================================</h4>
+        <div v-text= "msg2"></div>
+        <!-- v-text默认没有闪烁问题，但是会覆盖元素本身的内容，并且以html形式覆盖 -->
+        <div v-html= "msg2">11111111</div>
+
+        <!-- v-bind 是vue提供的用于绑定属性的指令 -->
+        <!-- 注意：v-bind 可以简写 ：绑定的属性 -->
+        <!-- v-bind可以写合法的js表达式 -->
+        <input type="button" value="按钮" title="我是自带的title">
+        <input type="button" value="按钮2" v-bind:title="mytitle">
+        <input type="button" value="按钮3" v-bind:title="mytitle + '123'">
+        <input type="button" value="按钮4" :title="mytitle + '简写的'">
+
+        <!-- vue中提供了v-on事件绑定机制 -->
+        <input type="button" value="按钮5" v-on:click="show">
+        <input type="button" value="按钮6" @click="show">
+    </div>
+    <!-- 先导入包 -->
+    <script src="./lib/vue-2.4.0.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',// el就是vue对象所控制的元素
+            data: {
+                msg:'123',
+                msg2:'<h1>哈哈</h1>',
+                mytitle:'这是我们自己定义的title'
+            },
+            methods:{// 这个methods属性定义了当前vue实例所有可用的方法
+                show:function(){
+                    alert("hello");
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+
+<!-- 1.Vue基本的代码结构 -->
+<!-- 2.插值表达式与v-text -->
+<!-- 3.v-cloak解决差值表达式闪烁问题 -->
+<!-- 4.v-html跟v-text差不多，只是覆盖元素的形式不同 -->
+<!-- 5.v-bind vue提供的属性绑定机制 ，缩写 ： -->
+<!-- 6.v-on vue提供的事件绑定机制，缩写 @ -->

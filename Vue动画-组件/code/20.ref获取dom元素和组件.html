@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="点击" @click="myClick" ref="mybtn">
+        <h3 ref="myh3">h3的内容</h3>
+        <com ref="mycom"></com>
+    </div>
+    <template id="templ">
+        <div>
+            <h3>我是子组件</h3>
+        </div>
+    </template>
+    <script>
+        var com = {
+            template:"#templ",
+            data(){
+                return{
+                    msg:'sonmsg'
+                }
+            },
+            methods:{
+                show(){
+                    console.log('调用了子组件show方法')
+                }
+            }
+        }
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            },
+            methods:{
+                myClick(){
+                    console.log(this.$refs.myh3.innerText);
+                    // ref获取并调用子组件方法
+                    this.$refs.mycom.show();
+                    console.log(this.$refs.mycom.msg)
+                }
+            },
+            components:{
+                com
+            }
+        })
+    </script>
+</body>
+</html>

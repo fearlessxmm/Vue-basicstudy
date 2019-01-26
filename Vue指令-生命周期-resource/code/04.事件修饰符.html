@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件修饰符</title>
+    <style>
+        .inner{
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+        .outer{
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 默认有事件冒泡，点击里面的btn，外面的也会触发 -->
+        <!-- <div class="inner" @click="divHander">
+            <input type="button" value="测试" @click="btnHander">
+        </div> -->
+        <!-- stop阻止冒泡 -->
+        <!-- <div class="inner" @click="divHander">
+            <input type="button" value="测试" @click.stop="btnHander">
+        </div> -->
+        <!-- prevent阻止默认事件 -->
+        <!-- <a href="http://www.baidu.com" @click.prevent="aHander">点击我，到百度</a> -->
+        <!-- capture事件捕获事件 -->
+        <!-- <div class="inner" @click.capture="divHander">
+            <input type="button" value="测试" @click.stop="btnHander">
+        </div> -->
+        <!-- self 只有点击当前的元素才会触发事件处理函数 -->
+        <!-- <div class="inner" @click.self="divHander">
+            <input type="button" value="测试" @click="btnHander">
+        </div> -->
+        <!-- once 只触发一次事件处理函数，只阻止了一次默认事件，之后再点击，就会触发默认事件 -->
+        <!-- <a href="http://www.baidu.com" @click.prevent.once="aHander">点击我，到百度</a> -->
+
+        <!-- stop和self的区别 -->
+        <!-- <div class="outer" @click="div2Hander">
+            <div class="inner" @click="div1Hander">
+                <input type="button" value="测试" @click.stop="btnHander">
+            </div>
+        </div> -->
+        <!-- self 只会阻止本身的冒泡行为的触发，但是不会真正的阻止冒泡行为 -->
+        <div class="outer" @click="div2Hander">
+            <div class="inner" @click.self="div1Hander">
+                <input type="button" value="测试" @click="btnHander">
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入包 -->
+    <script src="./lib/vue-2.4.0.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            methods: {
+                btnHander() {
+                    console.log("出发了btn点击事件");
+                },
+                div1Hander() {
+                    console.log("触发了div1点击事件")
+                },
+                aHander() {
+                    console.log("出发了a点击事件");
+                },
+                div2Hander() {
+                    console.log("触发了div2点击事件")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

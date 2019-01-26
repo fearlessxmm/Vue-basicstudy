@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color:red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <h1 class="red thin italic">我是一个h1</h1> -->
+
+        <!-- 第一种使用方法：直接传递一个数组，注意：这里的class需要使用 v-bind 做数据绑定 -->
+        <!-- <h1 :class="['thin','red']">我是一个h1</h1> -->
+
+        <!-- 第二种使用方法：数组中使用三元表达式，提高了代码的可读性 -->
+        <!-- <h1 :class="['thin','red',flag?'active':'']">我是一个h1</h1> -->
+        <!-- 第三种使用方法：数组中嵌套对象 -->
+        <!-- <h1 :class="['thin',{'active':flag}]">我是一个h1</h1> -->
+
+        <!-- 第四种使用方法：直接使用对象 -->
+        <!-- 在为class使用 v-bind绑定对象时，对象属性名是类名，由于对象的属性可带引号，也可不带引号，所以这里没有使用引号；属性的值是一个标识符-->
+        <!-- <h1 :class="{red:true,thin:true,active:true}">我是一个h1</h1> -->
+        <h1 :class="classObj">我是一个h1</h1>
+    </div>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                flag:true,
+                classObj:{red:true,thin:true,active:true}
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

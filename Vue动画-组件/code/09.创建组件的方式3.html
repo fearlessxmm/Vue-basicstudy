@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mycom3></mycom3>
+    </div>
+    <div id="app2">
+        <login></login>
+    </div>
+
+    <!-- 在被控制的#app外面，使用template元素，定义组件的html模板结构 -->
+    <template id="temp">
+        <div>
+            <h1>通过template，在组件外部定义的html结构，这种方式代码有高亮和提示</h1>
+            <h3>相比前面两种更好用</h3>
+        </div>
+    </template>
+
+    <template id="temp2">
+        <h3>私有定义的组件，通过app2 外的template</h3>
+    </template>
+    <script>
+        // 直接以 Vue.component 创建出来的组件
+        Vue.component('mycom3',{
+            template:'#temp'
+        })
+        // Vue实例
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+
+        var vm2 = new Vue({
+            el:"#app2",
+            data:{},
+            methods:{},
+            filters:{},
+            directives:{},
+            components:{
+                login:{
+                    /* template:'<h3>这是通过私有定义的组件</h3>' */
+                    template:'#temp2'
+                }
+            },
+
+            beforeCreate(){},
+            created(){},
+            beforeMount(){},
+            mounted(){},
+            beforeUpdate(){},
+            updated(){},
+            beforeDestory(){},
+            destoryed(){}
+        })
+    </script>
+</body>
+</html>
